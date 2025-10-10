@@ -4,10 +4,6 @@ Spring boot demo
 ## Feladat leírása
 3 táblás minta feladat a Spring Boot Rest API végpontok bebumatására
 
-## Alkalmazás indítása
-
-`mvn spring-boot:run`
-
 ## Adatbázis indítása
 
 `cd /path/to/your/docker`
@@ -20,15 +16,9 @@ Indítsd el a konténert
 
 `docker run -d -p 1433:1433 --name mssql2019 mssql2019-img`
 
-cd /path/to/your/docker`
+## Alkalmazás indítása
 
-Építsd fel az image-et
-
-`docker build -t mssql2019-img .`
-
-Indítsd el a konténert
-
-`docker run -d -p 1433:1433 --name mssql2019 mssql2019-img`
+`mvn spring-boot:run`
 
 ## Tesztek indítása
 
@@ -38,7 +28,7 @@ Indítsd el a konténert
 
 `mvn verify`
 
-Kimenet a következő lesz
+Kimenet a következő lesz. Az integrációs teszthez kell hogy fusson egy alkalmazás példány a localhost:8080 -as címen!
 <pre>
 [INFO] -------------------------------------------------------
 [INFO]  T E S T S
