@@ -5,41 +5,42 @@ Spring boot demo
 3 táblás minta feladat a Spring Boot Rest API végpontok bebumatására
 
 ## Alkalmazás indítása
-`
-mvn spring-boot:run`
+
+`mvn spring-boot:run`
 
 ## Adatbázis indítása
-`
+
+`cd /path/to/your/docker`
+
+Építsd fel az image-et
+
+`docker build -t mssql2019-img .`
+
+Indítsd el a konténert
+
+`docker run -d -p 1433:1433 --name mssql2019 mssql2019-img`
+
 cd /path/to/your/docker`
 
 Építsd fel az image-et
-`
-docker build -t mssql2019-img .`
+
+`docker build -t mssql2019-img .`
 
 Indítsd el a konténert
-`
-docker run -d -p 1433:1433 --name mssql2019 mssql2019-img`
 
-cd /path/to/your/docker`
-
-Építsd fel az image-et
-`
-docker build -t mssql2019-img .`
-
-Indítsd el a konténert
-`
-docker run -d -p 1433:1433 --name mssql2019 mssql2019-img`
+`docker run -d -p 1433:1433 --name mssql2019 mssql2019-img`
 
 ## Tesztek indítása
-mvn test
+
+`mvn test`
 
 ## Integrációs tesztek indítása:
 
-mvn verify
+`mvn verify`
 
 Kimenet a következő lesz
-`
-[INFO] -------------------------------------------------------
+
+`[INFO] -------------------------------------------------------
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running com.gere.demo.apiTest.ContactsApiIT
@@ -49,6 +50,7 @@ Kimenet a következő lesz
 [INFO] Running com.gere.demo.apiTest.PersonsApiIT
 [INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.292 s -- in com.gere.demo.apiTest.PersonsApiIT
 `
+
 ## Tovább fejlesztési lehetőségek:
 * Front-end fejlésztés a Spring Boot back-end részére: Mondjuk React, Vue, Svelte
 * Nem érdemes lenne megvizsgálni A Spring Boot asynchron lehesőségetit egy mondjuk egy hasonló méretű projekten
