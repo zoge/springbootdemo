@@ -23,6 +23,10 @@ A konténer indulás után az init-db -ben található SQL fájlok lefutnak és 
 
 `mvn spring-boot:run`
 
+### Swagger UI elérése:
+
+http://localhost:8080/swagger-ui/index.html
+
 ### Tesztek indítása
 
 `mvn test`
