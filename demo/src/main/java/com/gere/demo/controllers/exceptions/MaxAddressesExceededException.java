@@ -1,0 +1,11 @@
+package com.gere.demo.controllers.exceptions;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(HttpStatus.CONFLICT)
+public class MaxAddressesExceededException extends RuntimeException {
+  public MaxAddressesExceededException(Integer personId) {
+    super("For a person only 2 address allowed (personId=" + personId + ")");
+  }
+}

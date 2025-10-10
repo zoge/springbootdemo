@@ -38,7 +38,7 @@ import lombok.ToString;
 @ToString(exclude = {"addresses"})
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor
 public class Person extends BaseEntity implements Serializable {
 

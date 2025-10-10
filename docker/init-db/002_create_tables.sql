@@ -36,3 +36,6 @@ CREATE TABLE Contact (
     UpdatedAt DATETIME2 DEFAULT SYSDATETIME()
     FOREIGN KEY (AddressId) REFERENCES Address(Id)
 );
+
+-- csak egy Állandó és egy ideiglenes címe lehet egy személynek
+CREATE UNIQUE INDEX Address_PersonId_IDX ON DemoDB.dbo.Address (PersonId,AddressType);

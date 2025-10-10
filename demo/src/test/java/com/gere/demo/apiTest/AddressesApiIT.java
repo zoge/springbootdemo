@@ -85,7 +85,7 @@ class AddressesApiIT extends ApiTestBase {
         var uniq = UUID.randomUUID().toString().substring(0, 8);
         var payload = """
       {
-        "personId": 1,
+        "personId": 2,
         "type": "TEMPORARY", 
         "street": "Fő utca 1.-%s",
         "city": "Budapest",

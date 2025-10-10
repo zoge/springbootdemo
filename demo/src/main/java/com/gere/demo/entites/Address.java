@@ -41,7 +41,7 @@ import lombok.ToString;
 @Getter @Setter @Builder
 @ToString(exclude = {"contacts"})
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor
 public class Address extends BaseEntity implements Serializable {
 

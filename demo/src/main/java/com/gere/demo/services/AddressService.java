@@ -1,5 +1,7 @@
 package com.gere.demo.services;
 
+import com.gere.demo.controllers.exceptions.AddressTypeAlreadyExistsException;
+import com.gere.demo.controllers.exceptions.MaxAddressesExceededException;
 import com.gere.demo.dtos.AddressCreateReq;
 import com.gere.demo.dtos.AddressRes;
 import com.gere.demo.dtos.AddressUpdateReq;
@@ -21,6 +23,13 @@ public class AddressService {
 
     public AddressRes create(AddressCreateReq req) {
         Person person = personService.require(req.personId());
+        if (repo.countByPersonId(req.personId())>= 2) {
+            throw new MaxAddressesExceededException(req.personId()); // -> 409
+        }
+        // max 1 per típus
+        if (repo.existsByPersonIdAndAddressType(req.personId(), req.type().name())) {
+            throw new AddressTypeAlreadyExistsException(req.personId(), req.type());
+        }
         Address a = Address.builder()
                 .person(person)
                 .addressType(req.type().name())
@@ -47,12 +56,18 @@ public class AddressService {
     public AddressRes update(Integer id, AddressUpdateReq req) {
         Address a = require(id);
         if (req.type() != null) {
-            a.setAddressType(req.type().name());
+            final String name = req.type().name();
+            // Ha változik a cím típus és létezik másik olyan típus    
+            if (!name.equals(a.getAddressType())
+                    && repo.existsByPersonIdAndAddressTypeAndIdNot(a.getPerson().getId(),  req.type().name(), id)) {
+                throw new AddressTypeAlreadyExistsException(a.getPerson().getId(), req.type());
+            }
+            a.setAddressType(name);
         }
         if (req.city() != null) {
             a.setCity(req.city());
         }
-        if (req.zipCode()!= null) {
+        if (req.zipCode() != null) {
             a.setZipCode(req.zipCode());
         }
         if (req.country() != null) {
