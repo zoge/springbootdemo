@@ -1,10 +1,11 @@
-### springbootdemo
+# springbootdemo
 Spring boot demo
 
 ## Feladat leírása
 3 táblás minta feladat a Spring Boot Rest API végpontok bebumatására
 
-## Adatbázis indítása
+## Alkalmazás indítása
+### Adatbázis indítása
 
 `cd /path/to/your/docker`
 
@@ -18,15 +19,15 @@ Indítsd el a konténert
 
 A konténer indulás után az init-db -ben található SQL fájlok lefutnak és az adatbázis és a táblák létrejönnek a konténerben.
 
-## Alkalmazás indítása
+### Alkalmazás indítása
 
 `mvn spring-boot:run`
 
-## Tesztek indítása
+### Tesztek indítása
 
 `mvn test`
 
-## Integrációs tesztek indítása:
+### Integrációs tesztek indítása:
 
 `mvn verify`
 
