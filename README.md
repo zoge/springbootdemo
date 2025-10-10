@@ -39,8 +39,8 @@ Indítsd el a konténert
 `mvn verify`
 
 Kimenet a következő lesz
-
-`[INFO] -------------------------------------------------------
+<pre>
+[INFO] -------------------------------------------------------
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running com.gere.demo.apiTest.ContactsApiIT
@@ -49,7 +49,7 @@ Kimenet a következő lesz
 [INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.215 s -- in com.gere.demo.apiTest.AddressesApiIT
 [INFO] Running com.gere.demo.apiTest.PersonsApiIT
 [INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.292 s -- in com.gere.demo.apiTest.PersonsApiIT
-`
+</pre>
 
 ## Tovább fejlesztési lehetőségek:
 * Front-end fejlésztés a Spring Boot back-end részére: Mondjuk React, Vue, Svelte
