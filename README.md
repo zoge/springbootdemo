@@ -16,6 +16,8 @@ Indítsd el a konténert
 
 `docker run -d -p 1433:1433 --name mssql2019 mssql2019-img`
 
+A konténer indulás után az init-db -ben található SQL fájlok lefutnak és az adatbázis és a táblák létrejönnek a konténerben.
+
 ## Alkalmazás indítása
 
 `mvn spring-boot:run`
