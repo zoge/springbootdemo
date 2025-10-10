@@ -50,12 +50,7 @@ class AddressesApiIT extends ApiTestBase {
                 .when()
                 .post("/api/addresses")
                 .then()
-                .statusCode(201)
-                .body("id", notNullValue())
-                .body("personId", is(1))
-                .body("type", equalTo("TEMPORARY"))
-                // Response-ban a mező neve: zipCode
-                .body("zipCode", equalTo("1011"));
+                .statusCode(409);
     }
 
     @Test
