@@ -1,14 +1,17 @@
 package com.gere.demo.services;
 
-import com.gere.demo.controllers.exceptions.MaxAddressesExceededException;
-import com.gere.demo.dtos.AddressCreateReq;
-import com.gere.demo.dtos.enums.AddressType;
-import com.gere.demo.entites.Address;
-import com.gere.demo.entites.Person;
-import com.gere.demo.repositories.PersonRepository;
+import com.gere.demo.controller.exception.AddressTypeAlreadyExistsException;
+import com.gere.demo.service.AddressService;
+import com.gere.demo.controller.exception.MaxAddressesExceededException;
+import com.gere.demo.dto.AddressCreateRequest;
+import com.gere.demo.dto.AddressType;
+import com.gere.demo.entity.Address;
+import com.gere.demo.entity.Person;
+import com.gere.demo.repository.AddressRepository;
+import com.gere.demo.repository.PersonRepository;
+import com.gere.demo.service.PersonService;
 import java.util.HashSet;
 import java.util.Optional;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,6 +27,10 @@ import static org.mockito.Mockito.verify;
 public class AddressServiceTest {
 
     @Mock
+    AddressRepository repo;
+    @Mock
+    PersonService personService;
+    @Mock
     PersonRepository personRepo;
     @InjectMocks
     AddressService addressService;
@@ -31,15 +38,35 @@ public class AddressServiceTest {
     @Test
     void addAddress_whenAlreadyHasTwo_shouldThrow() {
         Person p = new Person();
-        p.setAddresses(new HashSet<>());
-        p.getAddresses().add(new Address());
-        p.getAddresses().add(new Address());
+        p.setId(1);
 
-        AddressCreateReq req = new AddressCreateReq(1, AddressType.TEMPORARY, "", "", "", "");
+        AddressCreateRequest req = new AddressCreateRequest(1, AddressType.TEMPORARY, "", "", "", "");
         
-        Mockito.when(personRepo.findByIdWithDetails(1)).thenReturn(Optional.of(p));
+       // Mockito.when(personRepo.findByIdWithDetails(1)).thenReturn(Optional.of(p));
+        Mockito.when(repo.countByPersonId(p.getId())).thenReturn(3);
+       // Mockito.when(repo.save(addressP)).thenReturn(addressP);
+        Mockito.when(personService.require(1)).thenReturn(p);
 
         MaxAddressesExceededException assertThrows = Assertions.assertThrows(MaxAddressesExceededException.class,
+                () -> addressService.create(req));
+
+        verify(personRepo, never()).save(any());
+    }
+    
+        @Test
+    void addAddress_whenAlreadyHasTwo_shouldThrow2() {
+        Person p = new Person();
+        p.setId(1);
+//       
+        AddressCreateRequest req = new AddressCreateRequest(1, AddressType.TEMPORARY, "", "", "", "");
+        
+       // Mockito.when(personRepo.findByIdWithDetails(1)).thenReturn(Optional.of(p));
+        Mockito.when(repo.countByPersonId(p.getId())).thenReturn(2);
+        Mockito.when(repo.existsByPersonIdAndAddressType(1, "TEMPORARY")).thenReturn(true);
+       // Mockito.when(repo.save(addressP)).thenReturn(addressP);
+        Mockito.when(personService.require(1)).thenReturn(p);
+
+        AddressTypeAlreadyExistsException assertThrows = Assertions.assertThrows(AddressTypeAlreadyExistsException.class,
                 () -> addressService.create(req));
 
         verify(personRepo, never()).save(any());
